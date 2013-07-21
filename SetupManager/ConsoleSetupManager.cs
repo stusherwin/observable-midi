@@ -63,8 +63,10 @@ namespace SetupManager
             Console.WriteLine("Ready to load setups.");
             while (WaitForAnyKey("Choose a setup on the RD and press any key (or Esc to finish loading setups)", ConsoleKey.Escape))
             {
+                Console.WriteLine();
+                Console.WriteLine("Loading...");
                 var setup = setupReceiver.RequestSetup();
-                Console.WriteLine("Loaded setup \"" + setup.Name + "\"");
+                Console.WriteLine("Loaded setup: " + setup.Name);
 
                 yield return setup;
             }

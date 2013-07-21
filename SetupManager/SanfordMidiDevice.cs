@@ -40,7 +40,7 @@ namespace SetupManager
             return new San.SysExMessage(message.Bytes);
         }
 
-        private static SysExMessage Convert(San.ChannelMessage message)
+        private static SysExMessage Convert(San.SysExMessage message)
         {
             return new SysExMessage(message.GetBytes());
         }
@@ -48,21 +48,24 @@ namespace SetupManager
         public class SanfordReceiveSession : IReceiveSession
         {
             private readonly InputDevice _input;
-            private readonly EventHandler<ChannelMessageEventArgs> _sanfordChannelMessageHandler;
+            private readonly EventHandler<SysExMessageEventArgs> _sanfordMessageHandler;
 
             public SanfordReceiveSession(InputDevice input, SysExMessageHandler receiveHandler)
             {
                 _input = input;
-                _sanfordChannelMessageHandler = (_, e) => receiveHandler(Convert(e.Message));
+                _sanfordMessageHandler = (_, e) =>
+                {
+                    receiveHandler(Convert(e.Message));
+                };
 
-                _input.ChannelMessageReceived += _sanfordChannelMessageHandler;
+                _input.SysExMessageReceived += _sanfordMessageHandler;
                 _input.StartRecording();
             }
 
             public void Dispose()
             {
                 _input.StopRecording();
-                _input.ChannelMessageReceived -= _sanfordChannelMessageHandler;
+                _input.SysExMessageReceived -= _sanfordMessageHandler;
             }
         }
     }
