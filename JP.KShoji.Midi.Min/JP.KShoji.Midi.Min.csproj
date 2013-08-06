@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E6BB0B57-E489-4A58-AF78-3898DEAF38DB}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>JP.KShoji.Midi.Min</RootNamespace>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AssemblyName>JP.KShoji.Midi.Min</AssemblyName>
+    <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Javax\Sound\Midi\MidiSystem.cs" />
+    <Compile Include="Driver\Midi\Listener\OnMidiDeviceAttachedListener.cs" />
+    <Compile Include="Driver\Midi\Listener\OnMidiDeviceDetachedListener.cs" />
+    <Compile Include="Driver\Midi\Listener\OnMidiInputEventListener.cs" />
+    <Compile Include="Driver\Midi\Thread\MidiDeviceConnectionWatcher.cs" />
+    <Compile Include="Driver\Midi\Util\Constants.cs" />
+    <Compile Include="Driver\Midi\Util\UsbMidiDeviceUtils.cs" />
+    <Compile Include="Driver\Usb\Util\DeviceFilter.cs" />
+    <Compile Include="Javax\Sound\Midi\Usb\UsbMidiDevice.cs" />
+    <Compile Include="Javax\Sound\Midi\Usb\UsbMidiReceiver.cs" />
+    <Compile Include="Javax\Sound\Midi\Usb\UsbMidiTransmitter.cs" />
+    <Compile Include="Driver\Midi\Device\MidiInputDevice.cs" />
+    <Compile Include="Driver\Midi\Device\MidiOutputDevice.cs" />
+    <Compile Include="Javax\Sound\Midi\MidiDevice.cs" />
+    <Compile Include="Javax\Sound\Midi\Transmitter.cs" />
+    <Compile Include="Driver\Midi\Handler\MidiMessageCallback.cs" />
+    <Compile Include="Javax\Sound\Midi\Receiver.cs" />
+    <Compile Include="Sharpen\ByteArrayOutputStream.cs" />
+    <Compile Include="Sharpen\Thread.cs" />
+    <Compile Include="Sharpen\OutputStream.cs" />
+    <Compile Include="Javax\Sound\Midi\MidiMessage.cs" />
+    <Compile Include="Sharpen\Runnable.cs" />
+    <Compile Include="Sharpen\Collections.cs" />
+    <Compile Include="Sharpen\Extensions.cs" />
+    <Compile Include="Sharpen\Iterable.cs" />
+    <Compile Include="Sharpen\ByteBuffer.cs" />
+    <Compile Include="Sharpen\CharSequence.cs" />
+    <Compile Include="Sharpen\InputStream.cs" />
+    <Compile Include="Sharpen\Iterator.cs" />
+    <Compile Include="Sharpen\ByteOrder.cs" />
+    <Compile Include="Sharpen\CharsetDecoder.cs" />
+    <Compile Include="Sharpen\CharsetEncoder.cs" />
+    <Compile Include="Sharpen\DataConverter.cs" />
+    <Compile Include="Sharpen\ListIterator.cs" />
+    <Compile Include="Sharpen\Process.cs" />
+    <Compile Include="Sharpen\CodingErrorAction.cs" />
+    <Compile Include="Sharpen\AList.cs" />
+    <Compile Include="Javax\Sound\Midi\MetaMessage.cs" />
+    <Compile Include="Javax\Sound\Midi\ShortMessage.cs" />
+    <Compile Include="Javax\Sound\Midi\SysexMessage.cs" />
+    <Compile Include="Javax\Sound\Midi\InvalidMidiDataException.cs" />
+    <Compile Include="Sharpen\EnumerableWrapper.cs" />
+    <Compile Include="Sharpen\EnumeratorWrapper.cs" />
+    <Compile Include="Sharpen\Exceptions.cs" />
+    <Compile Include="Sharpen\SynchronizedList.cs" />
+    <Compile Include="Sharpen\WrappedSystemStream.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Javax\" />
+    <Folder Include="Javax\Sound\" />
+    <Folder Include="Javax\Sound\Midi\" />
+    <Folder Include="Driver\" />
+    <Folder Include="Driver\Midi\" />
+    <Folder Include="Sharpen\" />
+  </ItemGroup>
+</Project>
