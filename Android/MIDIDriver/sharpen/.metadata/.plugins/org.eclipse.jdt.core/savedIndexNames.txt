@@ -1,0 +1,1 @@
+INDEX VERSION 1.126+C:\Users\Stuart\Documents\GitHub\USB-MIDI-Driver\MIDIDriver\sharpen\.metadata\.plugins\org.eclipse.jdt.core

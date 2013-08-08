@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 
 namespace SetupManager.Core
@@ -27,6 +29,8 @@ namespace SetupManager.Core
             using(_midiDevice.StartReceiving(m =>
             {
                 receivedMessages.Add(m);
+                //Console.WriteLine("Sysex (name {0}): {1}", m.IsNameMessage? "Y" : "N", Encoding.ASCII.GetString(m.Bytes.Where(b => b > 31).ToArray()));
+                //Console.WriteLine("\t{0}", String.Join(" ", m.Bytes.Select(b => b.ToString("X2"))));
                 lastMessageReceived = DateTime.Now;
             }))
             {
@@ -36,6 +40,7 @@ namespace SetupManager.Core
                 {
                     Thread.Sleep(10);
                 }
+                //Console.WriteLine("No more messages");
 
                 return Setup.Load(receivedMessages);    
             }

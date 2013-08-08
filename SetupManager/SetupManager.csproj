@@ -59,12 +59,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleSetupManager.cs" />
+    <Compile Include="ConsoleSetupReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SanfordInputDeviceInfoProvider.cs" />
     <Compile Include="SanfordMidiDevice.cs" />
     <Compile Include="SanfordMidiDeviceFactory.cs" />
     <Compile Include="SanfordOutputDeviceInfoProvider.cs" />
+    <Compile Include="XmlSetupWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SetupManager.Core\SetupManager.Core.csproj">

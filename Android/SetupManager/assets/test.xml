@@ -1,0 +1,13 @@
+<setups>
+    <setup name="Setup 1 (attr)">
+        <sysex>0A 23 F0</sysex>
+        <sysex>09 08 07</sysex>
+    </setup>
+    <setup name="Setup 2 (attr)">
+        <sysex>FF 00 99</sysex>
+    </setup>
+    <setup name="Setup 3 (attr)">
+        <sysex>01 02 03</sysex>
+        <sysex>F1 2A 3E</sysex>
+    </setup>
+</setups>

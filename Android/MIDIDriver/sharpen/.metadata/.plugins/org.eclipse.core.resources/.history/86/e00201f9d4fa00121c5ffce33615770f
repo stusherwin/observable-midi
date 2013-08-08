@@ -1,0 +1,16 @@
+eclipse.preferences.version=1
+encoding//src/JP/KShoji/Driver/Midi/Activity/AbstractMultipleMidiActivity.cs=utf-8
+encoding//src/JP/KShoji/Driver/Midi/Activity/AbstractSingleMidiActivity.cs=utf-8
+encoding//src/JP/KShoji/Driver/Midi/BuildConfig.cs=utf-8
+encoding//src/JP/KShoji/Driver/Midi/Device/MidiInputDevice.cs=utf-8
+encoding//src/JP/KShoji/Driver/Midi/Device/MidiOutputDevice.cs=utf-8
+encoding//src/JP/KShoji/Driver/Midi/Handler/MidiMessageCallback.cs=utf-8
+encoding//src/JP/KShoji/Driver/Midi/Thread/MidiDeviceConnectionWatcher.cs=utf-8
+encoding//src/JP/KShoji/Driver/Midi/Util/Constants.cs=utf-8
+encoding//src/JP/KShoji/Driver/Usb/Util/DeviceFilter.cs=utf-8
+encoding//src/JP/KShoji/Javax/Sound/Midi/InvalidMidiDataException.cs=utf-8
+encoding//src/JP/KShoji/Javax/Sound/Midi/MetaMessage.cs=utf-8
+encoding//src/JP/KShoji/Javax/Sound/Midi/MidiDevice.cs=utf-8
+encoding//src/JP/KShoji/Javax/Sound/Midi/MidiMessage.cs=utf-8
+encoding//src/JP/KShoji/Javax/Sound/Midi/MidiSystem.cs=utf-8
+encoding//src/JP/KShoji/Javax/Sound/Midi/MidiUnavailableException.cs=utf-8

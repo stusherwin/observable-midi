@@ -10,7 +10,8 @@ namespace SetupManager
             IDeviceInfoProvider<InputDeviceInfo> inputDeviceInfoProvider = new SanfordInputDeviceInfoProvider();
             IDeviceInfoProvider<OutputDeviceInfo> outputDeviceInfoProvider = new SanfordOutputDeviceInfoProvider();
 
-            new ConsoleSetupManager(factory, inputDeviceInfoProvider, outputDeviceInfoProvider).Manage();
+            //new ConsoleSetupManager(factory, inputDeviceInfoProvider, outputDeviceInfoProvider).Manage();
+            new ConsoleSetupReader(factory, inputDeviceInfoProvider, outputDeviceInfoProvider).ReadSetups();
         }
     }
 }
