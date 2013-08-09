@@ -1,7 +1,10 @@
 package com.stusherwin.setupmanager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -44,7 +47,9 @@ public class SetListActivity extends Activity {
 	private SetList _setList;
 	
 	private List<Button> _soloButtons = new ArrayList<Button>();
-	private boolean[] _soloSelected = new boolean[4]; 
+	private boolean[] _soloSelected = new boolean[3]; 
+	
+	private Button _sync;
 	
 	private void selectPosition(int position) {
 		_setListAdapter.selectSetupAtPosition(position);
@@ -90,11 +95,10 @@ public class SetListActivity extends Activity {
         
 		setContentView(R.layout.activity_set_list);
 		
-		try {
-			InputStream stream = this.getAssets().open("setups.xml");
+		try {			
 			XmlSetListLoader loader = new XmlSetListLoader();
 			
-			_setList = loader.load(stream);
+			_setList = loader.load(getSetupFileInputStream());
 			
 			_setListAdapter = new SetListAdapter( this, _setList.getSetups());
 			
@@ -112,7 +116,8 @@ public class SetListActivity extends Activity {
 			_soloButtons.add((Button)findViewById( R.id.solo1 ));
 			_soloButtons.add((Button)findViewById( R.id.solo2 ));
 			_soloButtons.add((Button)findViewById( R.id.solo3 ));
-			_soloButtons.add((Button)findViewById( R.id.solo4 ));
+			
+			_sync = (Button)findViewById( R.id.solo4 );
 			
 			OnClickListener onClickListener = new OnClickListener() {
 				@Override
@@ -126,6 +131,38 @@ public class SetListActivity extends Activity {
 				_soloButtons.get(i).setOnClickListener(onClickListener);
 			}
 			
+			_sync.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {					
+					SetupReceiver receiver = new SetupReceiver(_midiManager);
+					try {
+						Setup setup = receiver.receive();
+						
+						if(_soloSelected[0]) {
+							_setList.getSolos().get(0).setSysExMessages(setup.getSysExMessages());
+						} else if(_soloSelected[1]) {
+							_setList.getSolos().get(1).setSysExMessages(setup.getSysExMessages());
+						} else if(_soloSelected[2]) {
+							_setList.getSolos().get(2).setSysExMessages(setup.getSysExMessages());
+						} else {
+							_setListAdapter.getSelectedSetup().setSysExMessages(setup.getSysExMessages());
+						}
+					
+						XmlSetListLoader loader = new XmlSetListLoader();
+						loader.write(_setList, getSetupFileOutputStream());
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+			
 			_midiManager = new MidiManager();
 			_midiManager.initialize(getApplicationContext());
 		} catch (IOException e) {
@@ -137,6 +174,31 @@ public class SetListActivity extends Activity {
 		}
 	}
 	
+	private InputStream getSetupFileInputStream() throws IOException {
+		File setupsFile = getFileStreamPath("setups.xml");
+		if(!setupsFile.exists()) {
+			InputStream asset = this.getAssets().open("setups.xml");
+			OutputStream out = openFileOutput("setups.xml", MODE_WORLD_READABLE);
+			try {
+				byte[] buf = new byte[1024];
+			    int len;
+			    while ((len = asset.read(buf)) > 0) {
+			        out.write(buf, 0, len);
+			    }
+			} finally {
+				if(asset != null)
+					asset.close();
+				if(out != null)
+					out.close();
+			}
+		}	
+		return openFileInput("setups.xml");
+	}
+	
+	private OutputStream getSetupFileOutputStream() throws FileNotFoundException {
+		return openFileOutput("setups.xml", MODE_WORLD_READABLE);
+	}
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		selectPosition(_setListAdapter.getSelectedSetupPosition() + 1);

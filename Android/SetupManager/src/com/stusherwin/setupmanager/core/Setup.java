@@ -41,4 +41,8 @@ public class Setup {
 
         return new Setup(nameMessage.getName(), nameMessage.getName(), sysExMessages);
     }
+
+	public void setSysExMessages(List<SysExMessage> sysExMessages) {
+		_sysExMessages = sysExMessages;
+	}
 }
