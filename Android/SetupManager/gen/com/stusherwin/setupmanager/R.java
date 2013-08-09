@@ -22,6 +22,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int black=0x7f050002;
         public static final int black_overlay=0x7f050000;
         public static final int faded=0x7f050003;
+        public static final int veryfaded=0x7f050004;
         public static final int white=0x7f050001;
     }
     public static final class dimen {
@@ -35,14 +36,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int button_shape=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int selected_button_shape=0x7f020002;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0005;
-        public static final int button1=0x7f0a0003;
+        public static final int action_settings=0x7f0a0008;
         public static final int noteOff=0x7f0a0002;
         public static final int noteOn=0x7f0a0001;
-        public static final int text=0x7f0a0004;
+        public static final int solo1=0x7f0a0003;
+        public static final int solo2=0x7f0a0004;
+        public static final int solo3=0x7f0a0005;
+        public static final int solo4=0x7f0a0006;
+        public static final int text=0x7f0a0007;
         public static final int textView1=0x7f0a0000;
     }
     public static final class layout {

@@ -4,5 +4,6 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="faded">#77ffffff</color>
+    <color name="veryfaded">#44ffffff</color>
 
 </resources>

@@ -8,21 +8,61 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/black"
     tools:context=".SetListActivity" >
     <ListView android:layout_height="wrap_content"
         android:id="@android:id/list"
-        android:layout_width="match_parent" />
+        android:layout_width="680dp" />
     <TextView android:text="The ListView is empty"
         android:id="@android:id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/solo1"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
         android:layout_below="@android:id/empty"
-        android:layout_toRightOf="@android:id/list"
-        android:text="Solo" />
+        android:layout_marginTop="50dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/button_shape"
+    	android:textSize="30sp"
+        android:text="Solo 1" />
+
+    <Button
+        android:id="@+id/solo2"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_alignLeft="@+id/solo1"
+        android:layout_below="@+id/solo1"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/button_shape"
+    	android:textSize="30sp"
+        android:text="Solo 2" />
+
+    <Button
+        android:id="@+id/solo3"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_alignLeft="@+id/solo2"
+        android:layout_below="@+id/solo2"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/button_shape"
+    	android:textSize="30sp"
+        android:text="Solo 3" />
+
+    <Button
+        android:id="@+id/solo4"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_alignLeft="@+id/solo3"
+        android:layout_below="@+id/solo3"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/button_shape"
+    	android:textSize="30sp"
+        android:text="Solo 4" />
 
 </RelativeLayout>

@@ -11,7 +11,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import com.stusherwin.setupmanager.core.MyObject;
 import com.stusherwin.setupmanager.core.Setup;
 import com.stusherwin.setupmanager.core.SysExMessage;
-import com.stusherwin.setupmanager.core.XmlSetupLoader;
+import com.stusherwin.setupmanager.core.XmlSetListLoader;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -32,8 +32,8 @@ public class XmlLoadActivity extends Activity {
 		
 		try {
 			InputStream stream = this.getAssets().open("setups.xml");
-			XmlSetupLoader loader = new XmlSetupLoader();
-			List<Setup> results = loader.load(stream);
+			XmlSetListLoader loader = new XmlSetListLoader();
+			List<Setup> results = loader.load(stream).getSetups();
 			for(Setup setup : results) {
 				write(setup.getName() + "\n");
 				for(SysExMessage msg : setup.getSysExMessages()) {

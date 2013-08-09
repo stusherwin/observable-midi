@@ -13,9 +13,10 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import jp.kshoji.driver.midi.device.MidiInputDevice;
 
+import com.stusherwin.setupmanager.core.SetList;
 import com.stusherwin.setupmanager.core.Setup;
 import com.stusherwin.setupmanager.core.SysExMessage;
-import com.stusherwin.setupmanager.core.XmlSetupLoader;
+import com.stusherwin.setupmanager.core.XmlSetListLoader;
 import com.stusherwin.setupmanager.midi.MidiManager;
 
 import android.os.Bundle;
@@ -24,11 +25,13 @@ import android.app.ListActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -38,17 +41,38 @@ public class SetListActivity extends Activity {
 	private ListView _listView;
 	private SetListAdapter _setListAdapter;
 	private SetupSender _setupSender;
+	private SetList _setList;
+	
+	private List<Button> _soloButtons = new ArrayList<Button>();
+	private boolean[] _soloSelected = new boolean[4]; 
 	
 	private void selectPosition(int position) {
 		_setListAdapter.selectSetupAtPosition(position);
 		Setup setup = _setListAdapter.getSelectedSetup();
 		
-		Toast.makeText(SetListActivity.this, "Sending " + setup.getName() + "...", Toast.LENGTH_SHORT).show();
 		_listView.smoothScrollToPositionFromTop(_setListAdapter.getSelectedSetupPosition(), 580 );
+		
 		sendSetup(setup);
+	}
+	
+	private void selectSolo(Button button) {
+		int selectedSoloIdx = _soloButtons.indexOf(button);
+		
+		for(int i = 0; i < _soloSelected.length; i++) {
+			_soloSelected[i] = !_soloSelected[i] && i == selectedSoloIdx;
+			_soloButtons.get(i).setBackgroundResource(_soloSelected[i] ? R.drawable.selected_button_shape : R.drawable.button_shape);
+		}
+		
+		if(_soloSelected[selectedSoloIdx]) {
+			sendSetup(_setList.getSolos().get(selectedSoloIdx));
+		} else {
+			sendSetup(_setListAdapter.getSelectedSetup());
+		}
 	}
 
 	private void sendSetup(Setup setup) {
+		Toast.makeText(SetListActivity.this, "Sending " + setup.getName() + "...", Toast.LENGTH_SHORT).show();
+		
 		if(_setupSender != null && _setupSender.isAlive() && !_setupSender.isCancelled()) {
 			_setupSender.cancel();
 		}
@@ -68,10 +92,11 @@ public class SetListActivity extends Activity {
 		
 		try {
 			InputStream stream = this.getAssets().open("setups.xml");
-			XmlSetupLoader loader = new XmlSetupLoader();
-			List<Setup> setups = loader.load(stream);
+			XmlSetListLoader loader = new XmlSetListLoader();
 			
-			_setListAdapter = new SetListAdapter( this, setups);
+			_setList = loader.load(stream);
+			
+			_setListAdapter = new SetListAdapter( this, _setList.getSetups());
 			
 			_listView = (ListView)findViewById( android.R.id.list );
 			_listView.setAdapter( _setListAdapter );
@@ -83,6 +108,23 @@ public class SetListActivity extends Activity {
 					selectPosition(position);
 				}
 			});
+			
+			_soloButtons.add((Button)findViewById( R.id.solo1 ));
+			_soloButtons.add((Button)findViewById( R.id.solo2 ));
+			_soloButtons.add((Button)findViewById( R.id.solo3 ));
+			_soloButtons.add((Button)findViewById( R.id.solo4 ));
+			
+			OnClickListener onClickListener = new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					selectSolo((Button)view);
+				}
+			};
+			
+			for(int i = 0; i < _soloButtons.size(); i++) {
+				_soloButtons.get(i).setText(_setList.getSolos().get(i).getName());
+				_soloButtons.get(i).setOnClickListener(onClickListener);
+			}
 			
 			_midiManager = new MidiManager();
 			_midiManager.initialize(getApplicationContext());
