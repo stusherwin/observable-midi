@@ -63,6 +63,6 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/button_shape"
     	android:textSize="30sp"
-        android:text="Solo 4" />
+        android:text="Sync" />
 
 </RelativeLayout>

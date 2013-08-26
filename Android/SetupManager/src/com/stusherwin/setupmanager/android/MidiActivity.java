@@ -1,5 +1,7 @@
-package com.stusherwin.setupmanager;
+package com.stusherwin.setupmanager.android;
 
+import com.stusherwin.setupmanager.R;
+import com.stusherwin.setupmanager.midi.MidiInputEventListener;
 import jp.kshoji.driver.midi.device.MidiInputDevice;
 
 import com.stusherwin.setupmanager.midi.MidiManager;
@@ -67,6 +69,6 @@ public class MidiActivity extends Activity {
 	public void onDestroy() {
 		super.onDestroy();
 
-	    _midiManager.destroy();
+	    _midiManager.dispose();
 	}
 }

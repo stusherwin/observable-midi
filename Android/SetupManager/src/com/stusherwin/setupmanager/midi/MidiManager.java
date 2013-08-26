@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.stusherwin.setupmanager.core.Disposable;
 import jp.kshoji.driver.midi.device.MidiInputDevice;
 import jp.kshoji.driver.midi.device.MidiOutputDevice;
 import jp.kshoji.driver.midi.listener.OnMidiDeviceAttachedListener;
@@ -25,8 +26,8 @@ import android.os.Message;
 import android.os.Handler.Callback;
 import android.util.Log;
 
-public class MidiManager implements OnMidiInputEventListener {
-	final class OnMidiDeviceAttachedListenerImpl implements OnMidiDeviceAttachedListener {
+public class MidiManager implements OnMidiInputEventListener, Disposable, MidiDevice {
+    final class OnMidiDeviceAttachedListenerImpl implements OnMidiDeviceAttachedListener {
 		private final UsbManager usbManager;
 		private final Context context;
 		
@@ -165,33 +166,38 @@ public class MidiManager implements OnMidiInputEventListener {
 	public void addInputListener(OnMidiInputEventListener listener) {
 		inputEventListeners.add(listener);
 	}
-	
-	public void destroy() {		
-		deviceConnectionWatcher.stop();
-		deviceConnectionWatcher = null;
-		
-		if (midiInputDevices != null) {
-			for (Set<MidiInputDevice> inputDevices : midiInputDevices.values()) {
-				if (inputDevices != null) {
-					for (MidiInputDevice inputDevice : inputDevices) {
-						if (inputDevice != null) {
-							inputDevice.stop();
-						}
-					}
-				}
-			}
-			
-			midiInputDevices.clear();
-		}
-		midiInputDevices = null;
-		
-		if (midiOutputDevices != null) {
-			midiOutputDevices.clear();
-		}
-		midiOutputDevices = null;
-		
-		deviceConnections = null;
-	}
+
+    public void removeInputListener(OnMidiInputEventListener listener) {
+        inputEventListeners.remove(listener);
+    }
+
+    @Override
+    public void dispose() {
+        deviceConnectionWatcher.stop();
+        deviceConnectionWatcher = null;
+
+        if (midiInputDevices != null) {
+            for (Set<MidiInputDevice> inputDevices : midiInputDevices.values()) {
+                if (inputDevices != null) {
+                    for (MidiInputDevice inputDevice : inputDevices) {
+                        if (inputDevice != null) {
+                            inputDevice.stop();
+                        }
+                    }
+                }
+            }
+
+            midiInputDevices.clear();
+        }
+        midiInputDevices = null;
+
+        if (midiOutputDevices != null) {
+            midiOutputDevices.clear();
+        }
+        midiOutputDevices = null;
+
+        deviceConnections = null;
+    }
 	
 	public final Set<UsbDevice> getConnectedUsbDevices() {
 		if (deviceConnectionWatcher != null) {

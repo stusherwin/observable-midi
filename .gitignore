@@ -49,3 +49,8 @@ _ReSharper*/
 
 #Project files
 [Bb]uild/
+
+#IntelliJ Idea files
+.idea/
+*.iml
+out/

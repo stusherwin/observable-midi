@@ -1,4 +1,4 @@
-package com.stusherwin.setupmanager;
+package com.stusherwin.setupmanager.midi;
 
 import jp.kshoji.driver.midi.device.MidiInputDevice;
 import jp.kshoji.driver.midi.listener.OnMidiInputEventListener;

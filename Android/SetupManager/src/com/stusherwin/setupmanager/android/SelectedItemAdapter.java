@@ -1,7 +1,8 @@
-package com.stusherwin.setupmanager;
+package com.stusherwin.setupmanager.android;
 
 import java.util.List;
 
+import com.stusherwin.setupmanager.R;
 import com.stusherwin.setupmanager.core.Setup;
 
 import android.content.Context;
@@ -11,48 +12,44 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class SetListAdapter extends BaseAdapter
+public class SelectedItemAdapter<T> extends BaseAdapter
 {
     private final Context context;
-	private List<Setup> setups;
-	private int selectedSetupPosition;
-     
-    public SetListAdapter( Context context, List<Setup> setups )
-    {
+	private List<T> items;
+	private int selectedPosition;
+
+    public SelectedItemAdapter( Context context, List<T> items ) {
         this.context = context;
-        this.setups = setups;
-		this.selectedSetupPosition = 0;
+        this.items = items;
+		this.selectedPosition = 0;
     }
 	
-	public int getSelectedSetupPosition() {
-		return this.selectedSetupPosition;
-	}
-	
-	public Setup getSelectedSetup() {
-		return this.setups.get(this.selectedSetupPosition);
-	}
-	
-	public void selectSetupAtPosition(int position) {
-		this.selectedSetupPosition = Math.min(this.setups.size() - 1, Math.max(0, position));
+	public void selectItemAtPosition(int position) {
+		this.selectedPosition = Math.min(this.items.size() - 1, Math.max(0, position));
 		
 		this.notifyDataSetChanged();
 	}
+
+    public void selectItem(T item) {
+        selectItemAtPosition(items.indexOf(item));
+    }
+
+    public int getSelectedItemPosition() {
+        return selectedPosition;
+    }
      
     @Override
-    public int getCount()
-    {
-        return this.setups.size();
+    public int getCount() {
+        return this.items.size();
     }
  
     @Override
-    public Object getItem( int position )
-    {
-        return this.setups.get( position );
+    public Object getItem( int position ) {
+        return this.items.get( position );
     }
  
     @Override
-    public long getItemId( int position )
-    {
+    public long getItemId( int position ) {
         return getItem( position ).hashCode();
     }
  
@@ -66,7 +63,7 @@ public class SetListAdapter extends BaseAdapter
          * for further explanation and base any production code on the later, 
          * more efficient examples.
          */
-    	int layoutId = position == this.selectedSetupPosition ? R.layout.selected_list_item : R.layout.list_item;
+    	int layoutId = position == this.selectedPosition ? R.layout.selected_list_item : R.layout.list_item;
     	
         LayoutInflater inflater = (LayoutInflater) 
             context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
