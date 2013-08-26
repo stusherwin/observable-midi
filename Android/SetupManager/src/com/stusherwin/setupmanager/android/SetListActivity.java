@@ -6,7 +6,7 @@ import java.util.List;
 import com.stusherwin.setupmanager.R;
 import com.stusherwin.setupmanager.core.*;
 
-import com.stusherwin.setupmanager.midi.MidiManager;
+import com.stusherwin.setupmanager.midi.AllAttachedUsbMidiDevices;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -85,11 +85,11 @@ public class SetListActivity extends Activity implements SetupChangeListener, No
     }
 
     private void initializePerformanceManager() {
-        MidiManager midiManager = new MidiManager();
-        midiManager.initialize(getApplicationContext());
+        AllAttachedUsbMidiDevices midiDevice = new AllAttachedUsbMidiDevices();
+        midiDevice.initialize(getApplicationContext());
 
         _performanceManager = new PerformanceManager(
-            midiManager,
+            midiDevice,
             this,
             new XmlSetListStore(new ActivitySetListFileStreamProvider(this)),
             this,

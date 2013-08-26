@@ -1,7 +1,6 @@
 package com.stusherwin.setupmanager.core;
 
 import com.stusherwin.setupmanager.midi.MidiDevice;
-import com.stusherwin.setupmanager.midi.MidiManager;
 
 public class AsyncSetupSender implements SetupSender {
     private SetupSenderThread _setupSenderThread;
@@ -36,7 +35,7 @@ public class AsyncSetupSender implements SetupSender {
                     break;
                 }
 
-                _midiDevice.sendMidiSystemExclusive(0, msg.getBytes());
+                _midiDevice.sendSysExMessage(msg);
 
                 try {
                     Thread.sleep(40);

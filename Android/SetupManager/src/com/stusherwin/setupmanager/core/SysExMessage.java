@@ -51,6 +51,20 @@ public class SysExMessage {
     }
 
 	private byte[] getBytes(int start, int length) {
+        byte[] bytes = getBytes();
+        if(start >= bytes.length)
+            return new byte[0];
+        if(start + length >= bytes.length )
+            length = bytes.length - start;
 	    return Arrays.copyOfRange(getBytes(), start, start + length);
 	}
+
+    @Override
+    public boolean equals(Object obj){
+        if ( this == obj ) return true;
+        if ( !(obj instanceof SysExMessage) ) return false;
+        SysExMessage other = (SysExMessage) obj;
+
+        return Arrays.equals(this._bytes, other._bytes);
+    }
 }

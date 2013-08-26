@@ -25,10 +25,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".android.MidiActivity"
-            android:label="@string/title_activity_midi" >
-        </activity>
     </application>
 
 </manifest>

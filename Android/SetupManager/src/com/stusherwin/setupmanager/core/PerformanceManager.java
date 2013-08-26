@@ -5,11 +5,11 @@ import java.util.List;
 
 public class PerformanceManager implements Disposable {
     private MidiDevice _midiDevice;
-    private SetupSender _setupSender;
-    private SetupReceiver _setupReceiver;
     private Notifier _notifier;
     private SetListStore _setListStore;
     private SetupChangeListener _setupChangeListener;
+    private SetupSender _setupSender;
+    private SetupReceiver _setupReceiver;
 
     private SetList _setList;
     private Setup _selectedSetup;
@@ -32,6 +32,7 @@ public class PerformanceManager implements Disposable {
 
     public void loadSetList() {
         _setList = _setListStore.retrieve();
+        selectSetupAtIndex(0);
     }
 
     public void selectSetupAtIndex(int setupIndex) {
@@ -76,15 +77,10 @@ public class PerformanceManager implements Disposable {
         if(currentSetup == null)
             return;
 
-        try {
-            Setup setup = _setupReceiver.receiveSetup(_midiDevice);
-            currentSetup.setSysExMessages(setup.getSysExMessages());
+        Setup setup = _setupReceiver.receiveSetup(_midiDevice);
+        currentSetup.setSysExMessages(setup.getSysExMessages());
 
-            _setListStore.store(_setList);
-        } catch (InterruptedException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
+        _setListStore.store(_setList);
     }
 
     public Setup getCurrentSetup() {
@@ -94,6 +90,14 @@ public class PerformanceManager implements Disposable {
             return _selectedSetup;
         }
         return null;
+    }
+
+    public Setup getSoloAtIndex(int index) {
+        return _setList.getSoloAtIndex(index);
+    }
+
+    public List<Setup> getSetups() {
+        return _setList.getSetups();
     }
 
     @Override
@@ -107,13 +111,5 @@ public class PerformanceManager implements Disposable {
 
         _notifier.Notify("Sending " + setup.getName() + "...");
         _setupSender.sendSetup(_midiDevice, setup);
-    }
-
-    public Setup getSoloAtIndex(int index) {
-        return _setList.getSoloAtIndex(index);
-    }
-
-    public List<Setup> getSetups() {
-        return _setList.getSetups();
     }
 }

@@ -31,15 +31,15 @@ public class Setup {
 
     public static Setup load(List<SysExMessage> sysExMessages)
     {
-    	SysExMessage nameMessage = null;
+        String name = "";
     	for(SysExMessage m : sysExMessages) {
     		if(m.isNameMessage()) {
-    			nameMessage = m;
+                name = m.getName();
     			break;
     		}
     	}
 
-        return new Setup(nameMessage.getName(), nameMessage.getName(), sysExMessages);
+        return new Setup(name, name, sysExMessages);
     }
 
 	public void setSysExMessages(List<SysExMessage> sysExMessages) {
