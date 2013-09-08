@@ -4,6 +4,7 @@ import com.stusherwin.setupmanager.core.Setup;
 import com.stusherwin.setupmanager.core.SysExMessage;
 import com.stusherwin.setupmanager.midi.MidiDevice;
 import com.stusherwin.setupmanager.midi.MidiDeviceInputListener;
+import org.junit.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +54,14 @@ public class FakeMidiDevice implements MidiDevice {
 
     @Override
     public void dispose() {
+    }
+
+    public void assertLastSysExesReceived(List<SysExMessage> sysExMessages) {
+        int sysExesLength = sysExMessages.size();
+        List<SysExMessage> receivedSysExes = receivedSysExMessages;
+        for(int i = 0; i < sysExesLength; i++) {
+            Assert.assertEquals(sysExMessages.get(i), receivedSysExes.get(receivedSysExes.size() - sysExesLength + i));
+        }
     }
 
     private void broadcast(SysExMessage sysExMessage) {

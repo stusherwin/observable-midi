@@ -81,7 +81,7 @@ public class XmlSetListStore implements SetListStore {
 	}
 
 	@Override
-    public void store(SetList _setList) {
+    public void store(SetList setList) {
         OutputStream out = null;
         try {
             out = fileStreamProvider.getOutputStream();
@@ -90,10 +90,10 @@ public class XmlSetListStore implements SetListStore {
                 serializer.setOutput(out, "UTF-8");
                 serializer.startDocument("UTF-8", true);
                 serializer.startTag("", "setups");
-                for(Setup setup : _setList.getSetups()) {
+                for(Setup setup : setList.getSetups()) {
                     writeSetup(serializer, setup, "setup");
                 }
-                for(Setup solo : _setList.getSolos()) {
+                for(Setup solo : setList.getSolos()) {
                     writeSetup(serializer, solo, "solo");
                 }
                 serializer.endTag("", "setups");

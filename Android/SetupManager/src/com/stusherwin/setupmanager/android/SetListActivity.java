@@ -43,58 +43,21 @@ public class SetListActivity extends Activity implements SetupChangeListener, No
         initializeListView();
         initializeSoloButtons();
         initializeSyncButton();
+
+        _performanceManager.initialize();
 	}
-
-    @Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-        _performanceManager.footSwitchPressed();
-		
-		return super.onKeyDown(keyCode, event);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.set_list, menu);
-		return true;
-	}
-	
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-
-	    _performanceManager.dispose();
-	}
-
-    @Override
-    public void selectedSetupChanged(Setup selectedSetup) {
-        _setListAdapter.selectItem(selectedSetup);
-        _listView.smoothScrollToPositionFromTop(_setListAdapter.getSelectedItemPosition(), 580 );
-    }
-
-    @Override
-    public void selectedSoloChanged(Setup selectedSolo) {
-        for(SoloButton sb : _soloButtons) {
-            sb.button.setBackgroundResource(sb.solo == selectedSolo ? R.drawable.selected_button_shape : R.drawable.button_shape);
-        }
-    }
-
-    @Override
-    public void Notify(String message) {
-        Toast.makeText(SetListActivity.this, message, Toast.LENGTH_SHORT).show();
-    }
 
     private void initializePerformanceManager() {
         AllAttachedUsbMidiDevices midiDevice = new AllAttachedUsbMidiDevices();
         midiDevice.initialize(getApplicationContext());
 
         _performanceManager = new PerformanceManager(
-            midiDevice,
-            this,
-            new XmlSetListStore(new ActivitySetListFileStreamProvider(this)),
-            this,
-            new AsyncSetupSender(),
-            new SyncSetupReceiver());
+                midiDevice,
+                this,
+                new XmlSetListStore(new ActivitySetListFileStreamProvider(this)),
+                this,
+                new AsyncSetupSender(),
+                new SyncSetupReceiver());
 
         _performanceManager.loadSetList();
     }
@@ -142,6 +105,55 @@ public class SetListActivity extends Activity implements SetupChangeListener, No
                 _performanceManager.syncCurrentSetup();
             }
         });
+    }
+
+    @Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+        _performanceManager.footSwitchPressed();
+		
+		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.set_list, menu);
+		return true;
+	}
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+	    _performanceManager.dispose();
+	}
+
+    @Override
+    public void selectedSetupChanged(Setup selectedSetup) {
+        _setListAdapter.selectItem(selectedSetup);
+        _listView.smoothScrollToPositionFromTop(_setListAdapter.getSelectedItemPosition(), 580 );
+    }
+
+    @Override
+    public void selectedSoloChanged(Setup selectedSolo) {
+        for(SoloButton sb : _soloButtons) {
+            sb.button.setBackgroundResource(sb.solo == selectedSolo ? R.drawable.selected_button_shape : R.drawable.button_shape);
+        }
+    }
+
+    @Override
+    public void Notify(String message) {
+        Toast.makeText(SetListActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
     private Setup findSoloForButton(Button button) {

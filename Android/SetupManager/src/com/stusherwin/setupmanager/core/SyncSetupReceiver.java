@@ -14,7 +14,7 @@ public class SyncSetupReceiver implements SetupReceiver {
 	@Override
     public Setup receiveSetup(MidiDevice midiDevice) {
 		final List<SysExMessage> sysexes = new ArrayList<SysExMessage>();
-        final Date lastMessageReceived = new Date(2030, 1, 1);
+        final Date lastMessageReceived = new Date();
         
 		// receiveSetup setup
         MidiDeviceInputListener inputListener = new MidiDeviceInputListener() {
@@ -40,7 +40,10 @@ public class SyncSetupReceiver implements SetupReceiver {
         }
 
         midiDevice.removeInputListener(inputListener);
-		
+
+        if(sysexes.size() == 0)
+            return null;
+
 		return Setup.load(sysexes);
 	}
 }

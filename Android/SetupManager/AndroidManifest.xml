@@ -19,6 +19,9 @@
             android:name=".android.SetListActivity"
             android:label="@string/title_activity_set_list"
             android:launchMode="singleTask" >
+        </activity>
+        <activity android:name=".android.DragDropTestActivity"
+                  android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

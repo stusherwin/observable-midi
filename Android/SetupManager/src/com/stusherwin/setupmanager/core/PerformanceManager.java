@@ -32,7 +32,14 @@ public class PerformanceManager implements Disposable {
 
     public void loadSetList() {
         _setList = _setListStore.retrieve();
+    }
+
+    public void initialize() {
         selectSetupAtIndex(0);
+    }
+
+    public void saveSetList() {
+        _setListStore.store(_setList);
     }
 
     public void selectSetupAtIndex(int setupIndex) {
@@ -77,10 +84,12 @@ public class PerformanceManager implements Disposable {
         if(currentSetup == null)
             return;
 
+        _notifier.Notify("Syncing " + currentSetup.getName() + "...");
         Setup setup = _setupReceiver.receiveSetup(_midiDevice);
-        currentSetup.setSysExMessages(setup.getSysExMessages());
+        _notifier.Notify("Received " + (setup != null ? setup.getName() : "no data"));
 
-        _setListStore.store(_setList);
+        if(setup != null)
+            currentSetup.setSysExMessages(setup.getSysExMessages());
     }
 
     public Setup getCurrentSetup() {
