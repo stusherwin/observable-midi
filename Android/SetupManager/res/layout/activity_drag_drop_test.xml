@@ -10,31 +10,18 @@
                     android:paddingTop="@dimen/activity_vertical_margin"
                     android:background="@color/black"
                     tools:context=".DragDropTestActivity" >
-    <ListView
+    <com.stusherwin.setupmanager.android.DragDropListView
             android:layout_width="300dp"
             android:layout_height="fill_parent"
             android:id="@+id/listViewLeft"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"/>
-    <ListView
+            android:layout_alignParentLeft="true"
+            android:animateLayoutChanges="true"/>
+    <com.stusherwin.setupmanager.android.DragDropListView
             android:layout_width="300dp"
             android:layout_height="fill_parent"
             android:id="@+id/listViewRight"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"/>
-    <TextView
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="350dp"
-            android:id="@+id/text"
-            android:text="0"
-            android:layout_alignParentBottom="true"/>
-    <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="350dp"
-            android:id="@+id/button"
-            android:text="M"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:animateLayoutChanges="true"/>
 </RelativeLayout>
